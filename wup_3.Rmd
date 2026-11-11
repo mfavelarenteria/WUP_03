@@ -1,7 +1,7 @@
 ---
 title: "Alcohol vs Seat choice"
-author: "Your Name"
-date: "Fall 2020"
+author: "Marisol Favela Renteria "
+date: "Fall 2026"
 output: html_document
 ---
 
@@ -14,8 +14,9 @@ require(tidyverse)
 require(tigerstats)
 davisdata <- read.csv(file="UCDavis.csv")
 ```
-## Our Goal is to answer this question Is there a difference between the alcohol consumed between the row
-## you choose to sit in??
+
+# introduction 
+Our Goal is to find out if there is a difference between the alcohol consumed between the row you choose to sit in. $H_0$ would show us there is no relation between where the student sits and the consumption of their alcohol. The $H_A$ would mean that there is a relation between where the student sits and their consumption of alcohol. 
 
 ## Now with ggplot - first select the basic data
 
