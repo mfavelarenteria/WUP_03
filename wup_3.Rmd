@@ -15,31 +15,44 @@ require(tigerstats)
 davisdata <- read.csv(file="UCDavis.csv")
 ```
 
-# introduction 
-Our Goal is to find out if there is a difference between the alcohol consumed between the row you choose to sit in. $H_0$ would show us there is no relation between where the student sits and the consumption of their alcohol. The $H_A$ would mean that there is a relation between where the student sits and their consumption of alcohol. 
+## introduction 
+The primary subject of this project is to find out if alcohol consumption has any correlation with the row the student sits in. We recieved our data from UCDavis. To be able to figure out if seat row and alcohol has any correlation we analyzed a data set that included 173 randomly selected students, taking note of the students typical seating row (independent) against their alcohol consumption
 
-## Now with ggplot - first select the basic data
+$H_0$ would show us there is no relation between where the student sits and the consumption of their alcohol. 
+The $H_A$ would mean that there is a relation between where the student sits and their consumption of alcohol. 
 
-```{r}
-basicCN <- ggplot(davisdata,aes(y=alcohol,x=Seat))
-```
+## methods 
+seat is categorical 
+consumption of alcohol 
+
+# data summaries 
+
+
 ## Now add in boxplot
 
 ```{r}
-basicCN + geom_boxplot()
+boxplot(alcohol~Seat,data=davisdata)
 ```
-  
-  
-### get fancy  
+  This graph demonstrates that if the student sits in the back  they are more likely to consume more ounces per week of alcohol than the students who sit in the front or middle rows. The middle row does seem to have more outliers varying on the ounces of alcohol consumed per week. 
 
+## Numerical Summaries
 ```{r}
-basicCN + geom_boxplot(notch=TRUE,outlier.color = "red") + stat_boxplot(geom ='errorbar') + labs(title="Fancy notch boxplot \n with 2 lines")
+favstats(alcohol~Seat,data=ucdavis1)
 ```
-
-## Numerical Summarys 
+The students who sit in the front row vary from the studentw who sit in the back by a big gap as the students who sit in the front row only reach a maximum of 20 ounces per week while the back reached the maximum of 55 ounces per week. 
 
 ## Inferential Tests
 
+
+```{r}
+model1 <- aov(alcohol~Seat,data=davisdata)
+summary.aov(model1)
+```
+The P-value is 0.000116 which is less than 0.05 we reject $H_0$ and are able to conclude that there is a relationship between students who sit in the back and how many ounces of alcohol are consumed by them each week. 
+```{r}
+plot(TukeyHSD(model1))
+```
+The tukey graph shows that there is a difference in alcohol consumption between students who sit in the front and back and middle
+
 ## Conclusions
-
-
+We were asked to find if there was any correlation amongst student row pick and their alcohol consumption. We recieved our data from UCDavis. To be able to figure out if seat row and alcohol has any correlation we analyzed a data set that included 173 randomly selected students, taking note of the students typical seating row (independent) against their alcohol consumption. Since the P-value of 0.000116 is less than 0.05 we reject the null hypothesis and therefore concluded that there is a statistically significant difference in mean alcohol consumption between the seating groups of the students. 
